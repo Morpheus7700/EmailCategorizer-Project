@@ -1,20 +1,19 @@
-# Gmail Urgency Classifier 📩🚀
+# EmailCategorizer-Project
 
-A **Serverless Chrome Extension** that automatically scans your Gmail inbox, categorizes emails based on urgency and importance, and provides a quick-access dashboard.
+> A privacy-first Chrome extension that flags Gmail messages by urgency, entirely in the browser.
 
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+A serverless Chrome extension that scans the Gmail tab, classifies visible messages by urgency using local keyword logic, and shows a quick-access popup. No data ever leaves the browser.
 
-## 🌟 Features
-- **Automatic Categorization:** Instantly analyzes email subjects and snippets using local logic.
-- **Urgency Levels:**
-  - 🔴 **URGENT**: Needs immediate attention (e.g., "Deadline", "Emergency").
-  - 🟡 **Important**: High value items (e.g., "Invoice", "Meeting", "Offer").
-  - 🟢 **Routine**: Standard correspondence.
-- **Privacy First:** **No data leaves your browser.** All processing happens locally within the extension.
-- **Quick Navigation:** Click any email in the extension popup to instantly open it in Gmail.
+## Features
+- Local, on-device categorisation of email subjects and snippets
+- Urgency levels — Urgent, Important, and Routine
+- Privacy first: all processing happens inside the extension
+- Click an item in the popup to jump straight to that email in Gmail
 
-## 🛠️ Installation
+## Tech Stack
+- Chrome Extension APIs (Manifest V3), JavaScript, HTML, CSS
+
+## Installation
 1. Clone or download this repository.
-2. Open **Google Chrome** and navigate to `chrome://extensions/`.
-3. Toggle **Developer mode** in the top right corner.
-4. Click **Load unpacked** and select this directory.
+2. Open `chrome://extensions/` and enable **Developer mode**.
+3. Choose **Load unpacked** and select this folder.
