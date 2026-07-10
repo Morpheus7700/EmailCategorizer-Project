@@ -1,0 +1,27 @@
+{
+  "name": "gmail-triage-extension",
+  "version": "1.1.0",
+  "description": "Privacy-first Chrome extension (Manifest V3) that classifies visible Gmail messages by urgency using local keyword logic. No backend, no data leaves the browser.",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [
+    "chrome-extension",
+    "manifest-v3",
+    "gmail",
+    "privacy",
+    "email-triage"
+  ],
+  "author": "Aniket Roy",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3"
+  }
+}

@@ -10,25 +10,25 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 function scanInbox() {
   // Gmail inbox rows usually have class 'zA'
-  const rows = document.querySelectorAll('tr.zA');
+  const rows = document.querySelectorAll("tr.zA");
   const results = [];
 
   rows.forEach((row, index) => {
     // 1. Assign a temporary ID so we can find it later to click
-    row.setAttribute('data-ext-id', index);
+    row.setAttribute("data-ext-id", index);
 
     // 2. Extract Data
     // Subject is usually in a span with class 'bog'
-    const subjectEl = row.querySelector('.bog');
+    const subjectEl = row.querySelector(".bog");
     const subject = subjectEl ? subjectEl.innerText : "No Subject";
 
     // Snippet (body preview) is usually in a span with class 'y2' - strip the " - " prefix if present
-    const snippetEl = row.querySelector('.y2');
+    const snippetEl = row.querySelector(".y2");
     let snippet = snippetEl ? snippetEl.innerText : "";
     snippet = snippet.replace(/^ - /, ""); // Remove leading dash often found in Gmail snippets
 
     // Sender
-    const senderEl = row.querySelector('.yW span'); // .yW is the sender column
+    const senderEl = row.querySelector(".yW span"); // .yW is the sender column
     const sender = senderEl ? senderEl.innerText : "Unknown";
 
     // 3. Simple Classification (Reusing logic here or in popup - let's do it here for speed)
@@ -41,7 +41,7 @@ function scanInbox() {
       snippet: snippet,
       category: analysis.category,
       score: analysis.score,
-      color: analysis.color
+      color: analysis.color,
     });
   });
 
@@ -54,19 +54,20 @@ function openEmail(index) {
     // Priority 1: The Subject Text (.bog) - this is usually the direct link
     // Priority 2: The Subject Wrapper (.xS)
     // Priority 3: The Row itself (fallback)
-    const clickTarget = row.querySelector('.bog') || row.querySelector('.xS') || row;
-    
+    const clickTarget =
+      row.querySelector(".bog") || row.querySelector(".xS") || row;
+
     // Gmail often expects a full click sequence
-    const events = ['mousedown', 'mouseup', 'click'];
-    
-    events.forEach(eventType => {
-        const event = new MouseEvent(eventType, {
-            bubbles: true,
-            cancelable: true,
-            view: window,
-            buttons: 1 // Left mouse button
-        });
-        clickTarget.dispatchEvent(event);
+    const events = ["mousedown", "mouseup", "click"];
+
+    events.forEach((eventType) => {
+      const event = new MouseEvent(eventType, {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        buttons: 1, // Left mouse button
+      });
+      clickTarget.dispatchEvent(event);
     });
   }
 }
@@ -75,26 +76,43 @@ function classifyText(subject, body) {
   const text = (subject + " " + body).toLowerCase();
   let score = 0;
 
-  const urgentKeywords = ["urgent", "asap", "immediate", "deadline", "emergency", "alert", "overdue"];
-  const importantKeywords = ["invoice", "meeting", "schedule", "contract", "offer", "payment", "required", "action"];
+  const urgentKeywords = [
+    "urgent",
+    "asap",
+    "immediate",
+    "deadline",
+    "emergency",
+    "alert",
+    "overdue",
+  ];
+  const importantKeywords = [
+    "invoice",
+    "meeting",
+    "schedule",
+    "contract",
+    "offer",
+    "payment",
+    "required",
+    "action",
+  ];
 
-  urgentKeywords.forEach(word => {
-      if (text.includes(word)) score += 3;
+  urgentKeywords.forEach((word) => {
+    if (text.includes(word)) score += 3;
   });
-          
-  importantKeywords.forEach(word => {
-      if (text.includes(word)) score += 2;
+
+  importantKeywords.forEach((word) => {
+    if (text.includes(word)) score += 2;
   });
 
   let category = "Routine";
   let color = "#4caf50"; // Green
 
   if (score >= 3) {
-      category = "URGENT";
-      color = "#f44336"; // Red
+    category = "URGENT";
+    color = "#f44336"; // Red
   } else if (score >= 1) {
-      category = "Important";
-      color = "#ff9800"; // Orange
+    category = "Important";
+    color = "#ff9800"; // Orange
   }
 
   return { category, color, score };
