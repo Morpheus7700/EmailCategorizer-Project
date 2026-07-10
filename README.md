@@ -1,4 +1,4 @@
-# EmailCategorizer-Project
+﻿# Gmail Urgency Classifier
 
 > A privacy-first Chrome extension that flags Gmail messages by urgency, entirely in the browser.
 
@@ -7,7 +7,7 @@ A serverless Chrome extension that scans the Gmail tab, classifies visible messa
 ## Features
 
 - Local, on-device categorisation of email subjects and snippets
-- Urgency levels — Urgent, Important, and Routine
+- Urgency levels â€” Urgent, Important, and Routine
 - Privacy first: all processing happens inside the extension
 - Click an item in the popup to jump straight to that email in Gmail
 
